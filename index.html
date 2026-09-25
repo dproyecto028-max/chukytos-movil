@@ -34,9 +34,14 @@
 
     <div class="main-screen hidden" id="mainScreen">
       <header class="topbar">
-        <div>
-          <p class="eyebrow">CHUKYTOS</p>
-          <h2>Mobile</h2>
+        <div class="topbar-brand">
+          <div class="mini-brand-mark">
+            <img src="logo chukytos.gif" alt="Logo CHUKYTOS" />
+          </div>
+          <div>
+            <p class="eyebrow">CHUKYTOS</p>
+            <h2>Mobile</h2>
+          </div>
         </div>
         <button class="logout-btn" id="logoutBtn" type="button">Salir</button>
       </header>
@@ -48,8 +53,12 @@
             <button class="ghost" id="quickScanBtn" type="button">Escanear</button>
           </div>
 
-          <div class="field-row compact">
-            <input id="saleCode" type="text" placeholder="Código de barras" inputmode="numeric" autocomplete="off" />
+          <div class="field-group">
+            <label class="field-label" for="saleCode">Código de barras</label>
+            <input id="saleCode" type="text" placeholder="Escaneá o escribí el código" inputmode="numeric" autocomplete="off" />
+          </div>
+          <div class="field-group small-field">
+            <label class="field-label" for="saleQty">Cantidad</label>
             <input id="saleQty" type="number" value="1" min="1" />
           </div>
 
@@ -73,18 +82,42 @@
           </div>
 
           <div class="stack">
-            <input id="entryCode" type="text" placeholder="Código de barras" />
-            <input id="entryName" type="text" placeholder="Nombre del producto" />
-            <div class="two-col">
-              <input id="entryQty" type="number" min="1" value="1" placeholder="Cantidad" />
-              <input id="entryMin" type="number" min="0" value="0" placeholder="Mínimo" />
+            <div class="field-group">
+              <label class="field-label" for="entryCode">Código de barras</label>
+              <input id="entryCode" type="text" placeholder="Escaneá o escribí el código" />
+            </div>
+            <div class="field-group">
+              <label class="field-label" for="entryName">Nombre del producto</label>
+              <input id="entryName" type="text" placeholder="Ej.: Galletitas de chocolate" />
             </div>
             <div class="two-col">
-              <input id="entryCost" type="number" min="0" step="0.01" placeholder="Costo" />
-              <input id="entryPrice" type="number" min="0" step="0.01" placeholder="Venta" />
+              <div class="field-group">
+                <label class="field-label" for="entryQty">Cantidad</label>
+                <input id="entryQty" type="number" min="1" value="1" placeholder="Cantidad" />
+              </div>
+              <div class="field-group">
+                <label class="field-label" for="entryMin">Stock mínimo</label>
+                <input id="entryMin" type="number" min="0" value="0" placeholder="0" />
+              </div>
             </div>
-            <input id="entryCategory" type="text" placeholder="Categoría" />
-            <input id="entryExpiry" type="date" />
+            <div class="two-col">
+              <div class="field-group">
+                <label class="field-label" for="entryCost">Costo</label>
+                <input id="entryCost" type="number" min="0" step="0.01" placeholder="0" />
+              </div>
+              <div class="field-group">
+                <label class="field-label" for="entryPrice">Precio de venta</label>
+                <input id="entryPrice" type="number" min="0" step="0.01" placeholder="0" />
+              </div>
+            </div>
+            <div class="field-group">
+              <label class="field-label" for="entryCategory">Categoría</label>
+              <input id="entryCategory" type="text" placeholder="Ej.: Lácteos" />
+            </div>
+            <div class="field-group">
+              <label class="field-label" for="entryExpiry">Fecha de vencimiento</label>
+              <input id="entryExpiry" type="date" />
+            </div>
             <button class="primary full" id="saveEntryBtn" type="button">Guardar ingreso</button>
             <p id="entryMessage" class="status-text"></p>
           </div>
@@ -96,7 +129,10 @@
           </div>
 
           <div class="stack">
-            <input id="lookupCode" type="text" placeholder="Escaneá o escribí el código" />
+            <div class="field-group">
+              <label class="field-label" for="lookupCode">Código de barras</label>
+              <input id="lookupCode" type="text" placeholder="Escaneá o escribí el código" />
+            </div>
             <button class="primary full" id="lookupBtn" type="button">Consultar</button>
             <div id="lookupResult" class="lookup-box empty">
               <span>Sin consulta aún</span>
