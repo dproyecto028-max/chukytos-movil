@@ -74,7 +74,16 @@ function logIn() {
 
   $('#loginError').textContent = 'Validando...';
 
-  fetch(`${apiUrl}?action=login&token=${encodeURIComponent(apiToken)}&username=${encodeURIComponent(user)}&password=${encodeURIComponent(password)}`)
+  fetch(apiUrl, {
+    method: 'POST',
+    headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+    body: JSON.stringify({
+      action: 'login',
+      token: apiToken,
+      username: user,
+      password: password
+    })
+  })
     .then((response) => response.json())
     .then((result) => {
       if (!result.ok) throw new Error(result.error || 'No se pudo iniciar sesión.');
