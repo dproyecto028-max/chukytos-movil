@@ -38,7 +38,7 @@ function renderCart() {
   if (!list || !totalEl) return;
 
   if (!saleCart.length) {
-    list.innerHTML = '<div class="cart-item"><div><strong>Carrito vacío</strong><small>Sin productos agregados</small></div></div>';
+    list.innerHTML = '<div class="cart-item"><div><strong>Carrito vacío</strong><small>Aún no agregaste productos</small></div></div>';
     totalEl.textContent = '$ 0';
     return;
   }
@@ -246,7 +246,7 @@ function lookupProduct() {
   const box = $('#lookupResult');
   if (!code) {
     box.className = 'lookup-box empty';
-    box.innerHTML = '<span>Ingresá un código para consultar.</span>';
+    box.innerHTML = '<span>Ingresá el código del producto para consultar.</span>';
     return;
   }
 
