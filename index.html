@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, viewport-fit=cover" />
+  <title>CHUKYTOS Mobile</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="app-shell">
+    <div class="login-screen" id="loginScreen">
+      <div class="brand-block">
+        <div class="brand-mark">
+          <img src="logo chukytos.gif" alt="Logo CHUKYTOS" />
+        </div>
+        <h1>CHUKYTOS</h1>
+        <p>Mobile</p>
+      </div>
+
+      <form id="loginForm" class="login-card">
+        <h2>Iniciar sesión</h2>
+        <label>
+          <span>Usuario</span>
+          <input id="loginUser" type="text" placeholder="user" autocomplete="username" required />
+        </label>
+        <label>
+          <span>Contraseña</span>
+          <input id="loginPassword" type="password" placeholder="••••••••" autocomplete="current-password" required />
+        </label>
+        <button class="primary" type="submit">Entrar</button>
+        <p class="login-error" id="loginError"></p>
+      </form>
+    </div>
+
+    <div class="main-screen hidden" id="mainScreen">
+      <header class="topbar">
+        <div>
+          <p class="eyebrow">CHUKYTOS</p>
+          <h2>Mobile</h2>
+        </div>
+        <button class="logout-btn" id="logoutBtn" type="button">Salir</button>
+      </header>
+
+      <main class="content">
+        <section class="panel active" id="panelVentas">
+          <div class="panel-head">
+            <h3>Ventas</h3>
+            <button class="ghost" id="quickScanBtn" type="button">Escanear</button>
+          </div>
+
+          <div class="field-row compact">
+            <input id="saleCode" type="text" placeholder="Código de barras" inputmode="numeric" autocomplete="off" />
+            <input id="saleQty" type="number" value="1" min="1" />
+          </div>
+
+          <button class="primary full" id="addSaleItemBtn" type="button">Agregar al carrito</button>
+          <p id="saleMessage" class="status-text"></p>
+
+          <div class="cart-box">
+            <h4>Carrito</h4>
+            <div id="saleCartList" class="cart-list"></div>
+            <div class="total-row">
+              <span>Total</span>
+              <strong id="saleTotal">$ 0</strong>
+            </div>
+            <button class="primary full" id="finishSaleBtn" type="button">Registrar venta</button>
+          </div>
+        </section>
+
+        <section class="panel hidden" id="panelIngreso">
+          <div class="panel-head">
+            <h3>Registrar ingreso</h3>
+          </div>
+
+          <div class="stack">
+            <input id="entryCode" type="text" placeholder="Código de barras" />
+            <input id="entryName" type="text" placeholder="Nombre del producto" />
+            <div class="two-col">
+              <input id="entryQty" type="number" min="1" value="1" placeholder="Cantidad" />
+              <input id="entryMin" type="number" min="0" value="0" placeholder="Mínimo" />
+            </div>
+            <div class="two-col">
+              <input id="entryCost" type="number" min="0" step="0.01" placeholder="Costo" />
+              <input id="entryPrice" type="number" min="0" step="0.01" placeholder="Venta" />
+            </div>
+            <input id="entryCategory" type="text" placeholder="Categoría" />
+            <input id="entryExpiry" type="date" />
+            <button class="primary full" id="saveEntryBtn" type="button">Guardar ingreso</button>
+            <p id="entryMessage" class="status-text"></p>
+          </div>
+        </section>
+
+        <section class="panel hidden" id="panelConsulta">
+          <div class="panel-head">
+            <h3>Consultar precio / stock</h3>
+          </div>
+
+          <div class="stack">
+            <input id="lookupCode" type="text" placeholder="Escaneá o escribí el código" />
+            <button class="primary full" id="lookupBtn" type="button">Consultar</button>
+            <div id="lookupResult" class="lookup-box empty">
+              <span>Sin consulta aún</span>
+            </div>
+          </div>
+        </section>
+      </main>
+
+      <nav class="bottom-nav">
+        <button class="nav-btn active" data-tab="panelVentas" type="button">Ventas</button>
+        <button class="nav-btn" data-tab="panelIngreso" type="button">Ingreso</button>
+        <button class="nav-btn" data-tab="panelConsulta" type="button">Consulta</button>
+      </nav>
+    </div>
+  </div>
+
+  <div class="camera-modal hidden" id="cameraModal">
+    <div class="camera-card">
+      <div class="camera-header">
+        <strong>Escaneo</strong>
+        <button id="closeCameraBtn" type="button">✕</button>
+      </div>
+      <video id="cameraVideo" autoplay playsinline muted></video>
+      <p id="cameraStatus">Ajustá la cámara sobre el código.</p>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
