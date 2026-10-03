@@ -47,6 +47,44 @@ input {
   min-height: 100vh;
   background: linear-gradient(180deg, #eaf7ee 0%, #f5f7f4 100%);
 }
+.intro-screen {
+  position: fixed;
+  inset: 0;
+  z-index: 40;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+  background: linear-gradient(135deg, #0d2c1f 0%, #176b4b 45%, #c9e86b 130%);
+  transition: opacity .8s ease, visibility .8s ease;
+}
+.intro-screen.hidden { opacity: 0; visibility: hidden; pointer-events: none; }
+.intro-card { display: grid; justify-items: center; gap: 16px; color: #fff; text-align: center; }
+.intro-mark {
+  width: 184px;
+  height: 184px;
+  overflow: hidden;
+  border: 1px solid rgba(255,255,255,.3);
+  border-radius: 24px 24px 24px 8px;
+  background: rgba(255,255,255,.18);
+  box-shadow: 0 20px 45px rgba(11,32,23,.25);
+  animation: introPulse 1.8s ease-in-out infinite;
+}
+.intro-mark img { display: block; width: 100%; height: 100%; object-fit: cover; border-radius: inherit; }
+.intro-card h1 { margin: 0; font-size: 76px; line-height: 1; }
+.intro-card p { margin: 0; font-size: 24px; letter-spacing: 3px; text-transform: uppercase; opacity: .82; }
+.intro-bar { width: 150px; height: 4px; overflow: hidden; border-radius: 99px; background: rgba(255,255,255,.12); }
+.intro-bar::after {
+  content: "";
+  display: block;
+  width: 40%;
+  height: 100%;
+  border-radius: inherit;
+  background: #dff2e8;
+  box-shadow: 0 0 15px rgba(223,242,232,.7);
+  animation: introLoading 1.4s ease-in-out infinite;
+}
+@keyframes introPulse { 0%,100% { transform: translateY(0) scale(1); } 50% { transform: translateY(-4px) scale(1.04); } }
+@keyframes introLoading { 0% { transform: translateX(-120%); } 100% { transform: translateX(260%); } }
 .login-screen {
   display: flex;
   flex-direction: column;
@@ -106,6 +144,7 @@ input {
   display: block;
   margin-bottom: 14px;
 }
+.login-card .register-only[hidden] { display: none; }
 .login-card span {
   display: block;
   margin-bottom: 6px;
@@ -120,6 +159,7 @@ input {
   font-weight: 700;
   box-shadow: 0 10px 24px rgba(23,107,75,0.2);
 }
+.auth-toggle { width: 100%; margin-top: 12px; }
 .ghost {
   background: #edf7f0;
   color: var(--green);
@@ -305,9 +345,11 @@ button.primary.full, .ghost {
   padding: 11px 8px;
 }
 .nav-btn.active {
-  background: var(--surface);
-  color: var(--green);
-  border: 1px solid #bfddc7;
+  background: var(--green);
+  color: #fff;
+  border: 1px solid var(--green-dark);
+  box-shadow: 0 5px 12px rgba(23,107,75,.22);
+  font-weight: 800;
 }
 .camera-modal {
   position: fixed;
