@@ -1,7 +1,9 @@
 const apiUrl = 'https://script.google.com/macros/s/AKfycbws2H8kVv_9lOoMBgxzD4OojmPpFWFqy4F9TDLBZ8x-SwtBbkgycVyInO5NXOlTwGIo_Q/exec';
 const defaultApiToken = '251372019d54420b835602be76029df8';
 let currentUser = '';
-let apiToken = localStorage.getItem('chukytosApiToken') || defaultApiToken;
+let registerMode = false;
+let apiToken = localStorage.getItem('mendcordApiToken') || defaultApiToken;
+localStorage.setItem('mendcordApiToken', apiToken);
 let products = [];
 let saleCart = [];
 let cameraStream = null;
@@ -10,6 +12,9 @@ let activeScanTarget = null;
 
 const $ = (selector) => document.querySelector(selector);
 const money = (value) => `$ ${Number(value || 0).toLocaleString('es-AR')}`;
+
+const introScreen = $('#introScreen');
+if (introScreen) setTimeout(() => introScreen.classList.add('hidden'), 1800);
 
 function showPanel(name) {
   document.querySelectorAll('.panel').forEach(panel => {
@@ -66,9 +71,19 @@ function renderCart() {
 
 function logIn() {
   const user = $('#loginUser').value.trim();
-  const password = $('#loginPassword').value.trim();
+  const password = $('#loginPassword').value;
   if (!user || !password) {
     $('#loginError').textContent = 'Ingresá usuario y contraseña.';
+    return;
+  }
+
+  const name = $('#registerName').value.trim();
+  if (registerMode && name.length < 3) {
+    $('#loginError').textContent = 'Ingresá tu nombre completo.';
+    return;
+  }
+  if (registerMode && password !== $('#registerPasswordConfirm').value) {
+    $('#loginError').textContent = 'Las contraseñas no coinciden.';
     return;
   }
 
@@ -78,10 +93,11 @@ function logIn() {
     method: 'POST',
     headers: { 'Content-Type': 'text/plain;charset=utf-8' },
     body: JSON.stringify({
-      action: 'login',
+      action: registerMode ? 'registerUser' : 'login',
       token: apiToken,
       username: user,
-      password: password
+      password: password,
+      name: name
     })
   })
     .then((response) => response.json())
@@ -94,9 +110,23 @@ function logIn() {
       syncInventory();
     })
     .catch((error) => {
-      $('#loginError').textContent = error.message;
+      $('#loginError').textContent = error.message === 'Usuario inactivo o inexistente.'
+        ? 'La cuenta no existe o está inactiva. Tocá “Crear cuenta de vendedor” para registrarte; si ya existe, pedile al administrador que la active en la hoja USUARIOS.'
+        : error.message;
     });
 }
+
+  $('#toggleRegister').addEventListener('click', () => {
+    registerMode = !registerMode;
+    document.querySelectorAll('.register-only').forEach(field => {
+      field.hidden = !registerMode;
+      field.querySelector('input').required = registerMode;
+    });
+    $('#authTitle').textContent = registerMode ? 'Crear cuenta' : 'Iniciar sesión';
+    $('#authSubmit').textContent = registerMode ? 'Crear cuenta de vendedor' : 'Entrar';
+    $('#toggleRegister').textContent = registerMode ? 'Ya tengo cuenta' : 'Crear cuenta de vendedor';
+    $('#loginError').textContent = '';
+  });
 
 function syncInventory() {
   fetch(`${apiUrl}?action=inventory&token=${encodeURIComponent(apiToken)}`)
@@ -369,6 +399,6 @@ $('#entryCode').addEventListener('keydown', (event) => {
   }
 });
 
-localStorage.setItem('chukytosApiToken', apiToken);
+localStorage.setItem('mendcordApiToken', apiToken);
 renderCart();
 showPanel('panelVentas');
