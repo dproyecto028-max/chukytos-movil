@@ -3,32 +3,49 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, viewport-fit=cover" />
-  <title>CHUKYTOS Mobile</title>
+  <title>MENDCORD Mobile</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
+  <div class="intro-screen" id="introScreen" aria-live="polite">
+    <div class="intro-card">
+      <div class="intro-mark"><img src="logo mendcord.gif" alt="Logo MENDCORD" /></div>
+      <h1>MENDCORD</h1>
+      <p>Gestión inteligente</p>
+      <div class="intro-bar" aria-hidden="true"></div>
+    </div>
+  </div>
   <div class="app-shell">
     <div class="login-screen" id="loginScreen">
       <div class="brand-block">
         <div class="brand-mark">
-          <img src="logo chukytos.gif" alt="Logo CHUKYTOS" />
+          <img src="logo mendcord.gif" alt="Logo MENDCORD" />
         </div>
-        <h1>CHUKYTOS</h1>
+        <h1>MENDCORD</h1>
         <p>Mobile</p>
       </div>
 
       <form id="loginForm" class="login-card">
-        <h2>Iniciar sesión</h2>
+        <h2 id="authTitle">Iniciar sesión</h2>
+        <label class="register-only" hidden>
+          <span>Nombre completo</span>
+          <input id="registerName" type="text" placeholder="Nombre y apellido" autocomplete="name" />
+        </label>
         <label>
           <span>Usuario</span>
-          <input id="loginUser" type="text" placeholder="user" autocomplete="username" required />
+          <input id="loginUser" type="text" placeholder="Tu usuario" autocomplete="username" required />
         </label>
         <label>
           <span>Contraseña</span>
           <input id="loginPassword" type="password" placeholder="••••••••" autocomplete="current-password" required />
         </label>
-        <button class="primary" type="submit">Entrar</button>
+        <label class="register-only" hidden>
+          <span>Repetir contraseña</span>
+          <input id="registerPasswordConfirm" type="password" placeholder="••••••••" autocomplete="new-password" />
+        </label>
+        <button class="primary" id="authSubmit" type="submit">Entrar</button>
         <p class="login-error" id="loginError"></p>
+        <button class="ghost auth-toggle" id="toggleRegister" type="button">Crear cuenta de vendedor</button>
       </form>
     </div>
 
@@ -36,10 +53,10 @@
       <header class="topbar">
         <div class="topbar-brand">
           <div class="mini-brand-mark">
-            <img src="logo chukytos.gif" alt="Logo CHUKYTOS" />
+            <img src="logo mendcord.gif" alt="Logo MENDCORD" />
           </div>
           <div>
-            <p class="eyebrow">CHUKYTOS</p>
+            <p class="eyebrow">MENDCORD</p>
             <h2>Mobile</h2>
           </div>
         </div>
@@ -88,7 +105,7 @@
             </div>
             <div class="field-group">
               <label class="field-label" for="entryName">Nombre del producto</label>
-              <input id="entryName" type="text" placeholder="Ej.: Galletitas de chocolate" />
+              <input id="entryName" type="text" placeholder="Nombre del producto" />
             </div>
             <div class="two-col">
               <div class="field-group">
@@ -112,7 +129,7 @@
             </div>
             <div class="field-group">
               <label class="field-label" for="entryCategory">Categoría</label>
-              <input id="entryCategory" type="text" placeholder="Ej.: Lácteos" />
+              <input id="entryCategory" type="text" placeholder="Categoría del producto" />
             </div>
             <div class="field-group">
               <label class="field-label" for="entryExpiry">Fecha de vencimiento</label>
